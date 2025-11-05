@@ -1,0 +1,14 @@
+@app.route('/editar/salvar/<int:id>', methods=['POST'])
+def editar_livro(id):
+    titulo = request.form['titulo']
+    ano_publicacao = request.form['ano_publicacao']
+    editora = request.form['editora']
+    isbn = request.form['isbn']
+    
+    query = "UPDATE livro SET titulo = %s, ano_publicacao = %s, editora = %s, isbn = %s WHERE id = %s"
+    values = (titulo, ano_publicacao, editora, isbn, id)
+    
+    cursor.execute(query, values)
+    db.commit()
+    
+    return redirect(url_for('listar'))
