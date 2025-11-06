@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Python - Listar Livros - Sistema de Biblioteca</title>
+</head>
+<body>
+    <h1>Lista de Livros</h1>
+    
+    <p><a href="{{ url_for('pagina_criar') }}">+ Adicionar Novo Livro</a></p>
+    
+    {% if livros %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Ano de Publicação</th>
+                    <th>Editora</th>
+                    <th>ISBN</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livro in livros %}
+                <tr>
+                    <td>{{ livro.id }}</td>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.ano_publicacao }}</td>
+                    <td>{{ livro.editora }}</td>
+                    <td>{{ livro.isbn }}</td>
+                    <td>
+                        <a href="{{ url_for('pagina_editar', id=livro.id) }}">Editar</a> |
+                        <a href="{{ url_for('deletar_livro', id=livro.id) }}" onclick="return confirm('Tem certeza que deseja deletar este livro?');">Deletar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum livro encontrado.</p>
+    {% endif %}
+    
+    <hr>
+    
+    <p><strong>Navegação:</strong></p>
+    <p>
+        <a href="/">← Voltar ao Início</a> | 
+        <a href="{{ url_for('pagina_criar') }}">Adicionar Novo Livro</a>
+    </p>
+</body>
+</html>
